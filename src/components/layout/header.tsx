@@ -43,7 +43,7 @@ export function Header() {
               <Button
                 variant="outline"
                 size="icon"
-                className="h-8 w-8"
+                className="h-8 w-8 border-none"
                 aria-label="Open menu">
                 <Menu className="h-4 w-4" />
               </Button>
