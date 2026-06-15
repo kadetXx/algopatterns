@@ -1,6 +1,6 @@
 # Algopatterns Frontend
 
-Browser-based Strudel playground with optional BYOK AI assistance. Runs entirely on the client — no backend required.
+Browser-based Strudel playground with optional BYOK AI assistance.
 
 ## Development
 
@@ -17,7 +17,7 @@ Open [http://localhost:3000](http://localhost:3000).
 2. No environment variables required for the editor
 3. Deploy from the `feat/frontend-only` branch (or merge to your default branch)
 
-Vercel builds on git push — no GitHub Actions or Docker needed.
+Vercel builds on git push. No GitHub Actions or Docker needed.
 
 ## AI
 

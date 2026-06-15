@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useEditorStore } from '@/lib/stores/editor';
 import { useUIStore } from '@/lib/stores/ui';
+import { isAIBlockedByCCSignal } from '@/lib/types/strudel';
 import { toast } from 'sonner';
 
 // padding/chrome around content (header + padding + borders)
@@ -18,10 +19,7 @@ export function useAIInput(onSendAIRequest: (query: string) => void, disabled: b
     useEditorStore();
   const { aiDrawerHeight, setAIDrawerHeight } = useUIStore();
 
-  // block AI if forked from a strudel that disallows AI
-  // if forked and parent has no signal or 'no-ai', AI is disabled (default to restrictive)
-  const parentSignalBlocksAI = !parentCCSignal || parentCCSignal === 'no-ai';
-  const isAIBlocked = !!(forkedFromId && parentSignalBlocksAI);
+  const isAIBlocked = isAIBlockedByCCSignal(parentCCSignal, forkedFromId);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);

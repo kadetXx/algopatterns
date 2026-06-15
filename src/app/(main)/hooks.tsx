@@ -172,11 +172,8 @@ export const useEditor = ({ strudelId, forkStrudelId }: UseEditorOptions = {}) =
     );
     setConversationHistory(localStrudel.conversation_history || []);
     setCurrentStrudel(localStrudel.id, localStrudel.title);
-
-    if (localStrudel.forked_from) {
-      setForkedFromId(localStrudel.forked_from);
-      setParentCCSignal(localStrudel.parent_cc_signal ?? null);
-    }
+    setForkedFromId(localStrudel.forked_from ?? null);
+    setParentCCSignal(localStrudel.cc_signal ?? localStrudel.parent_cc_signal ?? null);
 
     markSaved();
     setIsLoadingStrudel(false);

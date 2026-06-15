@@ -116,6 +116,16 @@ export function inferSignalFromLicense(license: CCLicense | null | undefined): C
   return null;
 }
 
+/** Whether the in-browser AI assistant should be disabled for this context. */
+export function isAIBlockedByCCSignal(
+  signal: CCSignal | null,
+  forkedFromId: string | null
+): boolean {
+  if (signal === 'no-ai') return true;
+  if (forkedFromId && !signal) return true;
+  return false;
+}
+
 // strudel entity
 export interface Strudel {
   id: string;

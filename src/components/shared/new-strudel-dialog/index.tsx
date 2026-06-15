@@ -33,7 +33,7 @@ export function NewStrudelDialog() {
         <AlertDialogBody>
           {hasUnsavedChanges
             ? currentStrudelId
-              ? "You have unsaved changes. Save first or start fresh — your current work stays in drafts."
+              ? "You have unsaved changes. Save first or start fresh. Your current work stays in drafts."
               : 'Your current work will be saved as a draft so you can continue later.'
             : 'Start fresh with a new strudel.'}
         </AlertDialogBody>

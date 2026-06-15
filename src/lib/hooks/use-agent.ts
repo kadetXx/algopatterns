@@ -7,6 +7,7 @@ import { useEditorStore } from '@/lib/stores/editor';
 import { storage } from '@/lib/utils/storage';
 import { getBYOKProvider, getBYOKApiKey } from '@/components/shared/settings-modal/hooks';
 import type { GenerateRequest, GenerateResponse, StreamEvent } from '@/lib/types/agent';
+import { isAIBlockedByCCSignal } from '@/lib/types/strudel';
 
 export function useAgentGenerate() {
   const { setAIGenerating, addToHistory, updateMessage } = useEditorStore();
@@ -22,8 +23,8 @@ export function useAgentGenerate() {
         parentCCSignal,
       } = useEditorStore.getState();
 
-      const parentSignalBlocksAI = !parentCCSignal || parentCCSignal === 'no-ai';
-      if (forkedFromId && parentSignalBlocksAI) {
+      const parentSignalBlocksAI = isAIBlockedByCCSignal(parentCCSignal, forkedFromId);
+      if (parentSignalBlocksAI) {
         throw new Error('AI assistant is disabled - the original strudel does not permit AI use');
       }
 

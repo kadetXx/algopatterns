@@ -161,9 +161,9 @@ export default function AboutPage() {
           assumptions, no &quot;opt-out by default.&quot;
         </p>
         <p className="text-muted-foreground font-light">
-          This isn&apos;t just policy. It&apos;s architecture. Every technical decision in
-          Algopatterns is designed to make respecting creator wishes the path of least
-          resistance.
+          This isn&apos;t just policy. It&apos;s a design goal. Algopatterns records creator
+          preferences and applies what it can locally, but this is a browser app, not a
+          locked-down platform.
         </p>
       </section>
 
@@ -171,16 +171,22 @@ export default function AboutPage() {
 
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">
-          How Algopatterns Enforces &quot;Responsible&quot; AI Use
+          How Algopatterns Handles AI &amp; Creator Preferences
         </h2>
+        <p className="text-muted-foreground font-light mb-6">
+          Algopatterns runs entirely in your browser. There is no server checking your code
+          or enforcing rules on your behalf. What follows is what the app actually does
+          today, honestly.
+        </p>
 
         <div className="space-y-8 mt-6">
           <div>
             <h3 className="text-lg font-semibold mb-3">
-              <span className="text-blue-600">1.</span> Explicit Consent Framework
+              <span className="text-blue-600">1.</span> CC Signals as Creator Intent
             </h3>
             <p className="text-muted-foreground font-light mb-4">
-              Creators choose their AI preferences when saving work via CC Signals:
+              When you save a strudel, you can attach a CC Signal: a statement of how you
+              feel about AI use on your work:
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border border-border rounded-lg">
@@ -215,59 +221,51 @@ export default function AboutPage() {
               </table>
             </div>
             <p className="text-muted-foreground font-light mt-3">
-              CC signals aren&apos;t a widely adopted standard yet, but on Algopatterns they
-              shape how AI assistance behaves in your browser — when you save, share, or fork
-              a pattern.
+              These travel with your work when you save, share, or fork a pattern. They are
+              not a legal framework. They are labels that express intent and help others
+              understand how you want your code treated.
             </p>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-3">
-              <span className="text-emerald-600">2.</span> Inherited Restrictions on Forks
+              <span className="text-emerald-600">2.</span> What the App Actually Blocks
             </h3>
             <p className="text-muted-foreground font-light mb-3">
-              When you fork a strudel with a{' '}
-              <code className="text-sm bg-muted px-1.5 py-0.5 rounded">no-ai</code>{' '}
-              signal, that restriction travels with it. AI is automatically disabled for:
+              The in-browser AI assistant is disabled when:
             </p>
             <ul className="list-disc list-inside text-muted-foreground font-light space-y-1 ml-2">
               <li>
-                Direct forks of{' '}
-                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">no-ai</code>{' '}
-                strudels
+                You open or fork a strudel marked{' '}
+                <code className="text-sm bg-muted px-1.5 py-0.5 rounded">no-ai</code>
               </li>
-              <li>Subforks (forks of forks) down the entire lineage</li>
+              <li>
+                You fork a strudel with no signal set (defaults to restrictive)
+              </li>
+              <li>You open a shared link that includes a <code className="text-sm bg-muted px-1.5 py-0.5 rounded">no-ai</code> signal</li>
             </ul>
             <p className="text-muted-foreground font-light mt-3">
-              You cannot fork someone&apos;s work and then use AI on it if they explicitly
-              opted out. The original creator&apos;s wishes are respected through the
-              entire derivative chain.
+              The other signals (CC-CR, CC-DC, etc.) are recorded and displayed, but are not
+              individually enforced beyond that. Someone could still copy your code elsewhere
+              and use AI on it. Algopatterns cannot stop that.
             </p>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-3">
-              <span className="text-purple-600">3.</span> In-Browser Enforcement
+              <span className="text-purple-600">3.</span> What Travels With Your Code
             </h3>
-            <p className="text-muted-foreground font-light mb-3">
-              Algopatterns runs entirely in your browser — no account, no server round-trips
-              for your code. Safeguards are applied locally:
-            </p>
             <ol className="list-decimal list-inside text-muted-foreground font-light space-y-1 ml-2">
               <li>
-                <strong>CC signals on save</strong> — your choice is stored with the
-                strudel and embedded in shared links
+                <strong>Attribution headers</strong>: title, license, and author appear as
+                comment headers when code is loaded, shared, or forked
               </li>
               <li>
-                <strong>Fork restrictions</strong> — AI is blocked when you fork a pattern
-                whose parent opted out
+                <strong>CC signal in share links</strong>: included in the compressed URL
+                when you share from the editor or shelf
               </li>
               <li>
-                <strong>Attribution headers</strong> — title, license, and author travel
-                with saved and shared code as comment headers
-              </li>
-              <li>
-                <strong>BYOK AI</strong> — when you use the Agent, requests go directly from
+                <strong>BYOK AI</strong>: if you use the Agent, requests go directly from
                 your browser to your chosen provider with your own API key
               </li>
             </ol>
@@ -279,15 +277,8 @@ export default function AboutPage() {
             </h3>
             <p className="text-muted-foreground font-light mb-3">
               When the Agent suggests code, it <strong>never</strong> automatically
-              updates your editor. You must:
-            </p>
-            <ul className="list-disc list-inside text-muted-foreground font-light space-y-1 ml-2">
-              <li>Manually copy the suggestion, or</li>
-              <li>Explicitly click &quot;Update Editor&quot;</li>
-            </ul>
-            <p className="text-muted-foreground font-light mt-3">
-              This keeps you in control and creates a clear record of what came from AI
-              versus your own creativity.
+              updates your editor. You must manually copy the suggestion or click
+              &quot;Update Editor.&quot;
             </p>
           </div>
 
@@ -296,8 +287,8 @@ export default function AboutPage() {
               <span className="text-purple-600">5.</span> Complete Opt-Out
             </h3>
             <p className="text-muted-foreground font-light">
-              Don&apos;t want AI at all? You can disable all AI features across the entire
-              app. Algopatterns works perfectly fine as a pure live coding platform.
+              Don&apos;t want AI at all? Disable it in Settings. Algopatterns works fine as
+              a pure live coding playground.
             </p>
           </div>
         </div>
@@ -306,37 +297,22 @@ export default function AboutPage() {
       <hr className="my-8 border-border" />
 
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">A Note on Imperfection</h2>
+        <h2 className="text-2xl font-semibold mb-4">A Note on Limits</h2>
         <p className="text-muted-foreground font-light mb-4">
-          I want to be honest: these safeguards are not foolproof. Someone determined
-          enough could strip headers, bypass fork restrictions by rewriting code manually,
-          or use external tools outside Algopatterns.
+          I want to be honest: these safeguards are soft. They run in your browser, on code
+          you can edit freely. Someone can strip headers, ignore signals, or use AI outside
+          Algopatterns entirely.
         </p>
         <p className="text-muted-foreground font-light mb-4">
-          I know this. I built the system anyway.
-        </p>
-        <p className="text-muted-foreground font-light mb-4">
-          Here&apos;s my thinking: perfect enforcement is impossible, but that is never
-          the goal. The goal is to make respecting creator wishes the default, and to make
-          circumvention require deliberate effort. If someone has to go out of their way
-          to bypass these protections, they&apos;ve made a conscious choice to disregard a
-          creator&apos;s explicit wishes. That&apos;s on them, not on the system.
-        </p>
-        <p className="text-muted-foreground font-light mb-4">
-          More importantly, the effort required to bypass these safeguards will almost
-          always exceed the effort of just writing your own code or finding AI-permissive
-          alternatives. The juice isn&apos;t worth the squeeze.
-        </p>
-        <p className="text-muted-foreground font-light mb-4">
-          These protections will continue to evolve. As I discover new bypass methods,
-          I&apos;ll patch them. As the community identifies gaps, I&apos;ll address them.
-          This is an ongoing commitment, not a finished product. The codebase is open
-          precisely so others can help strengthen these safeguards over time.
+          The goal is not perfect enforcement. That would require a server and a level of
+          control I deliberately chose not to build. The goal is to make respecting creator
+          wishes easy and visible: label your intent, carry attribution with your code, and
+          block AI in the obvious cases where someone opened or forked work that said
+          no-ai.
         </p>
         <p className="text-muted-foreground font-light">
-          Perfect is the enemy of good. I&apos;d rather ship something that raises the bar
-          meaningfully than wait forever for an unbreakable solution that doesn&apos;t
-          exist.
+          If that framing works for you, great. If you need hard guarantees, this tool
+          alone cannot provide them.
         </p>
       </section>
 
@@ -487,7 +463,7 @@ export default function AboutPage() {
             categorized sound groups in the sidebar
           </li>
           <li>
-            <strong className="text-white">Strudel Player</strong> — browse and play
+            <strong className="text-white">Strudel Player</strong>: browse and play
             patterns from the Strudel community site
           </li>
           <li>
@@ -495,11 +471,11 @@ export default function AboutPage() {
             pattern language in your browser
           </li>
           <li>
-            <strong className="text-white">Local shelf</strong> — save strudels in your
+            <strong className="text-white">Local shelf</strong>: save strudels in your
             browser with optional CC license and AI signals
           </li>
           <li>
-            <strong className="text-white">Share and fork</strong> — copy a compressed link
+            <strong className="text-white">Share and fork</strong>: copy a compressed link
             or fork from your shelf; attribution travels in code headers
           </li>
           <li>
