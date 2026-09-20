@@ -863,14 +863,16 @@ export function useStrudelEditor(
             setTimeout(async () => {
               try {
                 const { formatCode } = await import('@/lib/utils/format');
-                const currentCode = useEditorStore.getState().code;
+                // Read the editor, not the store. The store is only refreshed
+                // from the mirror by a 500ms poll, so 50ms after a paste it
+                // still holds the text from before it -- formatting that and
+                // writing it back is what erased the paste.
+                const inst = getStrudelMirrorInstance();
+                const currentCode = inst?.code ?? useEditorStore.getState().code;
                 const formatted = await formatCode(currentCode);
-                // consume the 'paste' source for this update, then reset to 'typed'
-                const source = useEditorStore.getState().consumeNextUpdateSource();
+                useEditorStore.getState().consumeNextUpdateSource();
                 if (formatted !== currentCode) {
                   useEditorStore.getState().setCode(formatted, false);
-                } else {
-                  useEditorStore.getState().consumeNextUpdateSource();
                 }
               } catch (error) {
                 console.warn('Auto-format on paste failed:', error);
@@ -1163,14 +1165,16 @@ export function useStrudelEditor(
           setTimeout(async () => {
             try {
               const { formatCode } = await import('@/lib/utils/format');
-              const currentCode = useEditorStore.getState().code;
+              // Read the editor, not the store. The store is only refreshed
+              // from the mirror by a 500ms poll, so 50ms after a paste it
+              // still holds the text from before it -- formatting that and
+              // writing it back is what erased the paste.
+              const inst = getStrudelMirrorInstance();
+              const currentCode = inst?.code ?? useEditorStore.getState().code;
               const formatted = await formatCode(currentCode);
-              // consume the 'paste' source for this update, then reset to 'typed'
-              const source = useEditorStore.getState().consumeNextUpdateSource();
+              useEditorStore.getState().consumeNextUpdateSource();
               if (formatted !== currentCode) {
                 useEditorStore.getState().setCode(formatted, false);
-              } else {
-                useEditorStore.getState().consumeNextUpdateSource();
               }
             } catch (error) {
               console.warn('Auto-format on paste failed:', error);
